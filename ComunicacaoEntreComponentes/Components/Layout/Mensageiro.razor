@@ -1,0 +1,21 @@
+﻿@rendermode InteractiveServer 
+@inject IMensagemService MensagemService
+
+
+<div class="card mb-3">
+    <h4 class="card-header">Blazor WebAssembly Component Communication</h4>
+    <div class="card-body">
+        <button @onclick="EnviaMensagem" class="btn btn-primary mr-2">Envia Mensagem</button>
+        <button @onclick="LimpaMensagens" class="btn btn-secondary">Limpa Mensagens</button>
+    </div>
+</div>
+@code {
+    private void EnviaMensagem()
+    {
+        MensagemService.EnviaMensagem("Mensagem enviada do componente Index para o componente MainLayout !");
+    }
+    private void LimpaMensagens()
+    {
+        MensagemService.LimpaMensagens();
+    }
+}

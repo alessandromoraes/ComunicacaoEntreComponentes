@@ -1,0 +1,30 @@
+﻿@rendermode InteractiveServer
+@implements IDisposable
+@inject IMensagemService MensagemService
+
+@foreach (var mensagem in mensagens)
+{
+    <div class="alert alert-sm alert-info">@mensagem</div>
+}
+
+@code {
+    private List<string> mensagens = new List<string>();
+    protected override void OnInitialized()
+    {
+        // se inscreve no evento OnMensagem
+        MensagemService.OnMensagem += MessageHandler;
+    }
+    public void Dispose()
+    {
+        // cancela inscrição no evento OnMensagem
+        MensagemService.OnMensagem -= MessageHandler;
+    }
+    private void MessageHandler(string mensagem)
+    {
+        if (mensagem != null)
+            mensagens.Add(mensagem);
+        else
+            mensagens.Clear();
+        StateHasChanged();
+    }
+}
